@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Background color of the half-circle -->
+    <solid android:color="#3C3C3C" /> <!-- Change the color as needed -->
+
+    <!-- Round only the top-left and top-right corners to form a half-circle -->
+    <corners
+        android:topLeftRadius="200dp"
+        android:topRightRadius="200dp"
+        android:bottomLeftRadius="200dp"
+        android:bottomRightRadius="200dp" />
+
+    <!-- Optional: Define the size of the half-circle -->
+    <size
+        android:width="10dp"
+        android:height="10dp" /> <!-- Adjust height to control how large the half-circle is -->
+
+</shape>
