@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PABA_Project"
         tools:targetApi="31">
         <activity
+            android:name=".edit_profile"
+            android:exported="false" />
+        <activity
             android:name=".profilPengguna"
             android:exported="false" />
         <activity
