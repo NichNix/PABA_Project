@@ -1,6 +1,7 @@
 package paba.project.berita_online.database
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
@@ -11,3 +12,4 @@ data class UserEntity(
     val name: String,
     val phoneNumber: String
 )
+

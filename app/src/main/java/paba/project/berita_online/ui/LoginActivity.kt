@@ -39,8 +39,15 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Perform login using ViewModel
             userViewModel.loginUser(email, password) { user ->
                 if (user != null) {
+                    // Save user email to SharedPreferences
+                    val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putString("user_email", user.email)  // Save the user's email
+                    editor.apply()
+
                     Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
                     navigateToMainPage()
                 } else {
