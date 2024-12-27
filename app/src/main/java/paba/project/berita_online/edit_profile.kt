@@ -52,17 +52,41 @@ class edit_profile : AppCompatActivity() {
 
         btnSimpan.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val updatedUser = UserEntity(
-                    email = emailUser.text.toString(),
-                    password = password.text.toString(),
-                    name = namaPengguna.text.toString(),
-                    phoneNumber = nomorHp.text.toString()
-                )
-                userDao.insertUser(updatedUser)
+                currentEmail?.let { email ->
+                    val updatedName = namaPengguna.text.toString()
+                    val updatedPhone = nomorHp.text.toString()
+                    val updatedPassword = password.text.toString()
+                    val updatedEmail = emailUser.text.toString()
 
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@edit_profile, "Profile updated", Toast.LENGTH_SHORT).show()
-                    finish()
+                    // Check if fields are updated and call the respective update methods
+                    userDao.getUserByEmail(email)?.let { user ->
+                        if (user.name != updatedName) {
+                            userDao.updateName(email, updatedName)
+                        }
+
+                        if (user.phoneNumber != updatedPhone) {
+                            userDao.updatePhoneNumber(email, updatedPhone)
+                        }
+
+                        if (user.password != updatedPassword) {
+                            userDao.updatePassword(email, updatedPassword)
+                        }
+
+                        // For email change, update the session and database
+                        if (user.email != updatedEmail) {
+                            userDao.updateEmail(email, updatedEmail)
+                            withContext(Dispatchers.Main) {
+                                getSharedPreferences("user_session", MODE_PRIVATE).edit()
+                                    .putString("user_email", updatedEmail).apply()
+                            }
+                        }
+
+                        // Notify the user that the profile is updated
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@edit_profile, "Profile updated", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    }
                 }
             }
         }
