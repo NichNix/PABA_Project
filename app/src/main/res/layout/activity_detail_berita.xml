@@ -11,31 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background1"
-        android:id="@+id/gambarBackground"
-        android:scaleType="centerCrop"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background1"
+            android:id="@+id/gambarBackground"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/search"
                 android:layout_marginLeft="300dp"
-                android:id="@+id/idSearch"/>
+                android:id="@+id/idSearch" />
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="400sp"
+                android:layout_height="400sp"
                 android:id="@+id/idGambar"
-                app:srcCompat="@drawable/white_person" />
+                app:srcCompat="@drawable/white_person"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -45,22 +45,21 @@
                 android:layout_marginBottom="12dp"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:text="judul berita"/>
+                android:textSize="24sp"
+            android:text="judul berita" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="40dp"
+                android:background="@drawable/news_frame"
                 android:id="@+id/idDetail"
+                android:padding="10dp"
                 android:layout_marginBottom="30dp"
                 android:textAlignment="center"
                 android:textStyle="normal"
-                android:text="isi berita"/>
-
-
-
+                android:textSize="18sp"
+            android:text="isi berita" />
         </LinearLayout>
     </FrameLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
