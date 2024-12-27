@@ -93,6 +93,8 @@ class edit_profile : AppCompatActivity() {
 
                                 // Notify the user that the profile has been updated
                                 Toast.makeText(this@edit_profile, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+
+                                finish()
                             }
                         }
                     }
