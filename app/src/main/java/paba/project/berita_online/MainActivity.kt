@@ -19,6 +19,9 @@ import paba.project.berita_online.ui.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var _judul : Array<String>
+    private lateinit var _detail : Array<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
