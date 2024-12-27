@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".detailBerita">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,44 +18,49 @@
         android:id="@+id/gambarBackground"
         android:scaleType="centerCrop"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <ImageButton
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/search"
-            android:layout_marginLeft="300dp"
-            android:id="@+id/idSearch"/>
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/idGambar"
-            app:srcCompat="@drawable/white_person" />
-    </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/idJudul"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="judul berita"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search"
+                android:layout_marginLeft="300dp"
+                android:id="@+id/idSearch"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="40dp"
-        android:id="@+id/idDetail"
-        android:layout_marginBottom="30dp"
-        android:textAlignment="center"
-        android:textStyle="normal"
-        android:text="isi berita"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/idGambar"
+                app:srcCompat="@drawable/white_person" />
 
-</FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/idJudul"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:text="judul berita"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:id="@+id/idDetail"
+                android:layout_marginBottom="30dp"
+                android:textAlignment="center"
+                android:textStyle="normal"
+                android:text="isi berita"/>
+
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
