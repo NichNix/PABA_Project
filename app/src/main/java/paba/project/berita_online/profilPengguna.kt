@@ -40,6 +40,12 @@ class profilPengguna : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val _backBtn = findViewById<ImageButton>(R.id.back_btn)
+        _backBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         userDao = db.userDao()  // Initialize userDao from the database
 
         val namaPengguna = findViewById<TextView>(R.id.nama_lengkap)

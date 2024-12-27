@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">PABA_Project</string>
+
+    <string-array name="judulBerita">
+        <item>[FULL] Penjelasan Ditjen Pajak soal QRIS hingga E-Money Kena PPN 12 Persen | SERIAL HARGA NAIK</item>
+        <item>Siap-Siap PPN Naik Tahun Depan jadi 12%! Berikut 3 Paket Stimulus Ekonomi untuk Pekerja atau Buruh</item>
+        <item>OJK Cabut 20 Izin Usaha BPR/S pada 2024: untuk Lindungi Konsumen dan Perkuat Industri</item>
+        <item>Langganan Netflix dan Spotify Kena PPN 12 Persen, DJP Kemenkeu: Bukan Pajak Baru | SERIAL HARGA NAIK</item>
+        <item>Lowongan Kerja PTC untuk D3-S1 Semua Jurusan, Penyandang Disabilitas Bisa Daftar</item>
+        <item>Harga Promo Minyak Goreng Selama Nataru di Beberapa Swalayan Indonesia, Serbu Diskonnya!</item>
+    </string-array>
+
+    <string-array name="detailBerita">
+        <item>Direktorat Jenderal (Ditjen) Pajak Kementerian Keuangan menegaskan QRIS, uang elektronik atau e-money dan dompet digital atau e-wallet dikenakan PPN 12 persen. Namun, hanya saat transaksi penyerahan jasa sistem pembayaran saja.</item>
+        <item>Bersamaan dengan kebijakan kenaikan Pajak Pertambahan Nilai (PPN) tahun 2025, pemerintah mengeluarkan kebijakan ekonomi berupa paket stimulus untuk pekerja atau buruh dan sektor usaha.</item>
+        <item>Sepanjang tahun 2024, Otoritas Jasa Keuangan (OJK) telah mencabut izin usaha 20 bank perekonomian rakyat (BPR) dan bank perekonomian rakyat syariah (BPRS). Kepala Eksekutif Pengawas Perbankan (PBKN) OJK Dian Ediana Rae mengatakan, hal itu dilakukan untuk menjaga dan memperkuat industri BPR/BPRS.</item>
+        <item>Pihak DJP Kemenkeu memastikan biaya langganan platform digital seperti Netflix, Spotify, hingga YouTube Premium akan dikenakan PPN sebesar 12 persen. Direktur Penyuluhan, Pelayanan, dan Hubungan Masyarakat Dirjen Pajak Kementerian Keuangan, Dwi Astuti, mengatakan PPN pada jasa layanan platform digital bukan pajak baru.</item>
+        <item>PT Pertamina Training and Consulting (PTC) membuka lowongan kerja untuk beberapa posisi bagi lulusan D3 dan S1 semua jurusan. Melansir laman recruitment.pertamina-ptc.com, Selasa (24/12/2024), lowongan PTC kali ini dibuka untuk penempatan di berbagai wilayah, seperti Jakarta, Riau hingga Jawa Timur.</item>
+        <item>Selama masa Natal 2024 dan Tahun Baru 2025, sejumlah swalayan di Indonesia menawarkan harga promo untuk minyak goreng yang termasuk salah satu kebutuhan pokok masyarakat Indonesia.</item>
+    </string-array>
+
+    <string-array name="gambarBerita">
+        <item>https://media-origin.kompas.tv/library/image/thumbnail/1735013486721/1735013486721.a_316_177.jpg</item>
+        <item>https://media-origin.kompas.tv/library/image/content_article/desktop_thumbnail/20240502080245.jpg</item>
+        <item>https://media-origin.kompas.tv/library/image/content_article/desktop_thumbnail/20240229004928.jpg</item>
+        <item>https://media-origin.kompas.tv/library/image/thumbnail/1735052013674/1735052013674.a_316_177.jpg</item>
+        <item>https://media-origin.kompas.tv/library/image/content_article/desktop_thumbnail/20240206003421.jpg</item>
+        <item>https://media-origin.kompas.tv/library/image/content_article/desktop_thumbnail/20230203065533.jpg</item>
+    </string-array>
 </resources>

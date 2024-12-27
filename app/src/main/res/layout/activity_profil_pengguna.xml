@@ -16,6 +16,7 @@
         android:background="@drawable/half_circle_background">
 
         <ImageButton
+            android:id="@+id/back_btn"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:src="@drawable/baseline_arrow_back_24"
