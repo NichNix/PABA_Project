@@ -1,11 +1,13 @@
 package paba.project.berita_online
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
     .Adapter<adapterBerita.ListViewHolder> () {
@@ -30,5 +32,9 @@ class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
 
         holder._judulBerita.setText(berita.judul)
         holder._detailBerita.setText(berita.detail)
+        Log.d("TEST", berita.gambar)
+        Picasso.get()
+            .load(berita.gambar)
+            .into(holder._gambarBerita)
     }
 }

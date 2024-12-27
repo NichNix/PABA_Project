@@ -13,6 +13,7 @@ vroom = "2.6.1"
 lifecycleViewModel = "2.6.1"
 lifecycleRuntimeKtx = "2.6.1"
 parcelize = "2.0.0"
+vpic = "2.8"
 
 
 [libraries]
@@ -29,6 +30,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "vroom" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModel" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "vpic" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
