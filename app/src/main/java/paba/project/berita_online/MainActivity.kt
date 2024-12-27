@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var _judul : Array<String>
     private lateinit var _detail : Array<String>
+    private lateinit var _gambar : Array<String>
+
+    private var arBerita = arrayListOf<berita>()
+    private lateinit var _rvBerita : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setContentView(R.layout.activity_main)
+
+        _rvBerita = findViewById<RecyclerView>(R.id.rvBerita)
+        SiapkanData()
+        TambahData()
+        TampilkanData()
 
         val db = Room.databaseBuilder(
             applicationContext,
@@ -80,6 +91,28 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    fun SiapkanData() {
+        _judul = resources.getStringArray(R.array.judulBerita)
+        _detail = resources.getStringArray(R.array.detailBerita)
+        _gambar = resources.getStringArray(R.array.gambarBerita)
+    }
+
+    fun TambahData() {
+        for (position in _judul.indices) {
+            val data = berita(
+                _gambar[position],
+                _judul[position],
+                _detail[position]
+            )
+            arBerita.add(data)
+        }
+    }
+
+    fun TampilkanData() {
+        _rvBerita.layoutManager = LinearLayoutManager(this)
+        _rvBerita.adapter = adapterBerita(arBerita)
     }
 
     // Retrieve the user session (email) from SharedPreferences
