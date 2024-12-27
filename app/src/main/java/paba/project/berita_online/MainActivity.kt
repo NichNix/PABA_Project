@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -112,7 +113,20 @@ class MainActivity : AppCompatActivity() {
 
     fun TampilkanData() {
         _rvBerita.layoutManager = LinearLayoutManager(this)
-        _rvBerita.adapter = adapterBerita(arBerita)
+
+        val adBerita = adapterBerita(arBerita)
+        _rvBerita.adapter = adBerita
+
+        adBerita.setOnItemClickCallback(object : adapterBerita.OnItemClickCallback{
+            override fun onItemClicked(data: berita) {
+                Toast.makeText(this@MainActivity,data.judul,Toast.LENGTH_LONG)
+                    .show()
+                val intent = Intent(this@MainActivity,detailBerita::class
+                    .java)
+                intent.putExtra("kirimData",data)
+                startActivity(intent)
+            }
+        })
     }
 
     // Retrieve the user session (email) from SharedPreferences

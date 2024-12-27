@@ -12,8 +12,8 @@ constraintlayout = "2.2.0"
 vroom = "2.6.1"
 lifecycleViewModel = "2.6.1"
 lifecycleRuntimeKtx = "2.6.1"
-parcelize = "2.0.0"
 vpic = "2.8"
+parcelize = "2.0.0"
 
 
 [libraries]

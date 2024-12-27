@@ -11,9 +11,16 @@ import com.squareup.picasso.Picasso
 
 class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
     .Adapter<adapterBerita.ListViewHolder> () {
+
+        private lateinit var onItemClickCallback: OnItemClickCallback
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data:berita)
+    }
+
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var _judulBerita = itemView.findViewById<TextView>(R.id.tvJudul)
-        var _detailBerita = itemView.findViewById<TextView>(R.id.idDetail)
+        var _detailBerita = itemView.findViewById<TextView>(R.id.tvDetail)
         var _gambarBerita = itemView.findViewById<ImageView>(R.id.gambarBerita)
     }
 
@@ -36,5 +43,13 @@ class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
         Picasso.get()
             .load(berita.gambar)
             .into(holder._gambarBerita)
+
+        holder._gambarBerita.setOnClickListener {
+            onItemClickCallback.onItemClicked(listBerita[position])
+        }
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 }
