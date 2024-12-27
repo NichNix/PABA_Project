@@ -58,8 +58,9 @@ class edit_profile : AppCompatActivity() {
                     val updatedPassword = password.text.toString()
                     val updatedEmail = emailUser.text.toString()
 
-                    // Check if fields are updated and call the respective update methods
+                    // Get the user by the current email
                     userDao.getUserByEmail(email)?.let { user ->
+                        // Check if the fields have been changed and update them accordingly
                         if (user.name != updatedName) {
                             userDao.updateName(email, updatedName)
                         }
@@ -72,19 +73,27 @@ class edit_profile : AppCompatActivity() {
                             userDao.updatePassword(email, updatedPassword)
                         }
 
-                        // For email change, update the session and database
+                        // Handle email change separately (as it affects user session)
                         if (user.email != updatedEmail) {
                             userDao.updateEmail(email, updatedEmail)
                             withContext(Dispatchers.Main) {
                                 getSharedPreferences("user_session", MODE_PRIVATE).edit()
                                     .putString("user_email", updatedEmail).apply()
+                                currentEmail = updatedEmail // Update currentEmail reference
                             }
                         }
 
-                        // Notify the user that the profile is updated
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(this@edit_profile, "Profile updated", Toast.LENGTH_SHORT).show()
-                            finish()
+                        // Refresh UI by loading the updated user data
+                        userDao.getUserByEmail(updatedEmail)?.let { updatedUser ->
+                            withContext(Dispatchers.Main) {
+                                namaPengguna.setText(updatedUser.name)
+                                nomorHp.setText(updatedUser.phoneNumber)
+                                emailUser.setText(updatedUser.email)
+                                password.setText(updatedUser.password)
+
+                                // Notify the user that the profile has been updated
+                                Toast.makeText(this@edit_profile, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
