@@ -53,6 +53,7 @@
         android:layout_margin="20dp"
         android:layout_gravity="center"
         android:text="SIMPAN"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:backgroundTint="@color/custom_red"/>
 
 </LinearLayout>

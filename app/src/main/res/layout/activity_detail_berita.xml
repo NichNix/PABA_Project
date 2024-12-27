@@ -58,7 +58,8 @@
                 android:textAlignment="center"
                 android:textStyle="normal"
                 android:textSize="18sp"
-            android:text="isi berita" />
+                android:text="isi berita"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </FrameLayout>
 

@@ -19,6 +19,7 @@
             android:id="@+id/back_btn"
             android:layout_width="70dp"
             android:layout_height="50dp"
+            android:layout_margin="20dp"
             android:src="@drawable/baseline_arrow_back_24"
             />
         <TextView
@@ -111,6 +112,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:textSize="20sp"
-        android:text="EDIT PROFILE"/>
+        android:text="EDIT PROFILE"
+        android:backgroundTint="@color/custom_red"/>
 
 </LinearLayout>

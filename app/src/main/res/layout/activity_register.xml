@@ -57,10 +57,10 @@
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittext_background"
         android:elevation="4dp"
         android:padding="12dp"
         android:text="Sign Up"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/custom_red"/>
 </LinearLayout>

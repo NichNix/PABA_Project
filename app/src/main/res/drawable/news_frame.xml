@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Background color of the smooth square -->
-    <solid android:color="#FFE9BE" /> <!-- Change the color as needed -->
+    <solid android:color="@color/custom_red" /> <!-- Change the color as needed -->
 
     <!-- Rounded corners to make the square smooth -->
     <corners android:radius="40dp" /> <!-- Adjust the radius to control how smooth the corners are -->

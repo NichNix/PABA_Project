@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Background color of the half-circle -->
-    <solid android:color="#AB5ECC" /> <!-- Change the color as needed -->
+    <solid android:color="#C50101" /> <!-- Change the color as needed -->
 
     <!-- Round only the top-left and top-right corners to form a half-circle -->
     <corners
