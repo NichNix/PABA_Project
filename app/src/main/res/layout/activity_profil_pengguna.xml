@@ -19,6 +19,7 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:src="@drawable/baseline_arrow_back_24"
+            android:id="@+id/arrowBack"
             />
         <TextView
             android:id="@+id/nama_lengkap"

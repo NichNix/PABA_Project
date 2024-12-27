@@ -19,6 +19,14 @@ class detailBerita : AppCompatActivity(){
             insets
         }
 
+//        val title = intent.getStringExtra("title")
+//        val description = intent.getStringExtra("description")
+//        val imageUrl = intent.getStringExtra("imageUrl")
+
+//        val titleTextView = findViewById<TextView>(R.id.idJudul)
+//        val descriptionTextView = findViewById<TextView>(R.id.idDetail)
+//        val imageView = findViewById<ImageView>(R.id.idGambar)
+
 
 //        var _idGambar = findViewById<ImageView>(R.id.idGambar)
 //        var _idJudul = findViewById<TextView>(R.id.idJudul)
