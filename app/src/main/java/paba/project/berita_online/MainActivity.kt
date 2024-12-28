@@ -59,6 +59,12 @@ class MainActivity : AppCompatActivity() {
         val greetingTextView: TextView = findViewById(R.id.tvGreeting)
         val loginButton: Button = findViewById(R.id.btnLogin)
 
+        val _btnTambahBerita = findViewById<Button>(R.id.tambahBrt_btn)
+        _btnTambahBerita.setOnClickListener {
+            val intent = Intent(this, input_berita::class.java)
+            startActivity(intent)
+        }
+
         if (email == null) {
             // If no user session is found, navigate to LoginActivity
             loginButton.text = "Login" // Set text to "Login"
