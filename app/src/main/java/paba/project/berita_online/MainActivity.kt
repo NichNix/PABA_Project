@@ -114,13 +114,32 @@ class MainActivity : AppCompatActivity() {
         val adBerita = adapterBerita(newsList) // Pass the list of news from the database
         _rvBerita.adapter = adBerita
 
+        // Set the onItemClickCallback
         adBerita.setOnItemClickCallback(object : adapterBerita.OnItemClickCallback {
             override fun onItemClicked(data: NewsEntity) {
-                Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_LONG).show()
+                // Create the intent to pass data to detailBerita activity
                 val intent = Intent(this@MainActivity, detailBerita::class.java)
-                intent.putExtra("kirimData", data) // You can customize what you send
+                intent.putExtra("kirimData", data) // Pass the NewsEntity as Parcelable
                 startActivity(intent)
+            }
+        })
+
+        // Set the onDeleteClickCallback to handle delete button click
+        adBerita.setOnDeleteClickCallback(object : adapterBerita.OnDeleteClickCallback {
+            override fun onDeleteClicked(data: NewsEntity) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val newsDao = NewsDatabase.getDatabase(applicationContext).newsDao()
+                    newsDao.deleteNews(data) // Delete the selected news from the database
+
+                    // Refresh the data after deletion
+                    launch(Dispatchers.Main) {
+                        // Fetch all news again after deletion
+                        val allNews = newsDao.getAllNews()
+                        // Update RecyclerView with the updated list
+                        adBerita.notifyDataSetChanged()
+                    }
+                }
             }
         })
     }

@@ -1,6 +1,7 @@
 package paba.project.berita_online.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -12,4 +13,10 @@ interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNews(news: paba.project.berita_online.database.NewsEntity)
+
+    @Query("SELECT * FROM news WHERE id = :newsId")
+    suspend fun getNewsById(newsId: Int): NewsEntity?
+
+    @Delete
+    suspend fun deleteNews(news: NewsEntity)
 }

@@ -96,6 +96,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/square_1"
         android:src="@drawable/baseline_stars_24" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
