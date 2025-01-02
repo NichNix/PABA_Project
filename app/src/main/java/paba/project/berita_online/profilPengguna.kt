@@ -60,6 +60,12 @@ class profilPengguna : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val favoriteNewsButton = findViewById<ImageButton>(R.id.go_to_favoritePage)
+        favoriteNewsButton.setOnClickListener {
+            val intent = Intent(this, favorite_news_list::class.java)
+            startActivity(intent)
+        }
+
         // Load profile data when the activity starts
         refreshProfileData()
     }
