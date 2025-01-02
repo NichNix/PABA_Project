@@ -1,6 +1,3 @@
-package paba.project.berita_online
-
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,20 +5,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import paba.project.berita_online.R
+import paba.project.berita_online.database.NewsEntity // Import NewsEntity
 
-class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
-    .Adapter<adapterBerita.ListViewHolder> () {
+class adapterBerita(private val listBerita: List<NewsEntity>) :
+    RecyclerView.Adapter<adapterBerita.ListViewHolder>() {
 
-        private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(data:berita)
+        fun onItemClicked(data: NewsEntity)
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var _judulBerita = itemView.findViewById<TextView>(R.id.tvJudul)
-        var _detailBerita = itemView.findViewById<TextView>(R.id.tvDetail)
-        var _gambarBerita = itemView.findViewById<ImageView>(R.id.gambarBerita)
+        var judulBerita = itemView.findViewById<TextView>(R.id.tvJudul)
+        var detailBerita = itemView.findViewById<TextView>(R.id.tvDetail)
+        var gambarBerita = itemView.findViewById<ImageView>(R.id.gambarBerita)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -35,17 +34,18 @@ class adapterBerita (private val listBerita: ArrayList<berita>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        var berita = listBerita[position]
+        val berita = listBerita[position]
 
-        holder._judulBerita.setText(berita.judul)
-        holder._detailBerita.setText(berita.detail)
-        Log.d("TEST", berita.gambar)
+        holder.judulBerita.text = berita.title // Using NewsEntity's title field
+        holder.detailBerita.text = berita.description // Using NewsEntity's content field
+
+        // Assuming 'gambar' in NewsEntity is a URL, you can use Picasso to load it
         Picasso.get()
-            .load(berita.gambar)
-            .into(holder._gambarBerita)
+            .load(berita.imageUrl) // Assuming 'imageUrl' is the field name for the image in NewsEntity
+            .into(holder.gambarBerita)
 
-        holder._gambarBerita.setOnClickListener {
-            onItemClickCallback.onItemClicked(listBerita[position])
+        holder.gambarBerita.setOnClickListener {
+            onItemClickCallback.onItemClicked(berita)
         }
     }
 

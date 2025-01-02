@@ -1,5 +1,6 @@
 package paba.project.berita_online
 
+import adapterBerita
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,17 +18,13 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import paba.project.berita_online.database.AppDatabase
-import paba.project.berita_online.database.UserEntity
+import paba.project.berita_online.database.NewsDatabase
+import paba.project.berita_online.database.NewsEntity
 import paba.project.berita_online.ui.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var _judul : Array<String>
-    private lateinit var _detail : Array<String>
-    private lateinit var _gambar : Array<String>
-
-    private var arBerita = arrayListOf<berita>()
-    private lateinit var _rvBerita : RecyclerView
+    private lateinit var _rvBerita: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +34,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         _rvBerita = findViewById<RecyclerView>(R.id.rvBerita)
-        SiapkanData()
-        TambahData()
-        TampilkanData()
 
         val db = Room.databaseBuilder(
             applicationContext,
@@ -47,10 +41,23 @@ class MainActivity : AppCompatActivity() {
             "user-database"
         ).build()
 
+        val newsDatabase = Room.databaseBuilder(
+            applicationContext,
+            NewsDatabase::class.java,
+            "news-database"
+        ).build()
+
         lifecycleScope.launch(Dispatchers.IO) {
-            val userDao = db.userDao()
-            val allUsers = userDao.getAllUsers()
-            Log.d("Debug", "All users in DB: $allUsers")
+            val newsDao = newsDatabase.newsDao()
+            val allNews = newsDao.getAllNews() // Fetch all news items from the database
+            Log.d("Debug", "All news in DB: $allNews")
+
+            // Show the data in RecyclerView on the main thread
+            launch(Dispatchers.Main) {
+                if (allNews.isNotEmpty()) {
+                    TampilkanData(allNews)
+                }
+            }
         }
 
         // Check if the user is logged in
@@ -100,36 +107,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun SiapkanData() {
-        _judul = resources.getStringArray(R.array.judulBerita)
-        _detail = resources.getStringArray(R.array.detailBerita)
-        _gambar = resources.getStringArray(R.array.gambarBerita)
-    }
-
-    fun TambahData() {
-        for (position in _judul.indices) {
-            val data = berita(
-                _gambar[position],
-                _judul[position],
-                _detail[position]
-            )
-            arBerita.add(data)
-        }
-    }
-
-    fun TampilkanData() {
+    // Update this method to display data from the NewsEntity database
+    fun TampilkanData(newsList: List<NewsEntity>) {
         _rvBerita.layoutManager = LinearLayoutManager(this)
 
-        val adBerita = adapterBerita(arBerita)
+        val adBerita = adapterBerita(newsList) // Pass the list of news from the database
         _rvBerita.adapter = adBerita
 
-        adBerita.setOnItemClickCallback(object : adapterBerita.OnItemClickCallback{
-            override fun onItemClicked(data: berita) {
-                Toast.makeText(this@MainActivity,data.judul,Toast.LENGTH_LONG)
+        adBerita.setOnItemClickCallback(object : adapterBerita.OnItemClickCallback {
+            override fun onItemClicked(data: NewsEntity) {
+                Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_LONG)
                     .show()
-                val intent = Intent(this@MainActivity,detailBerita::class
-                    .java)
-                intent.putExtra("kirimData",data)
+                val intent = Intent(this@MainActivity, detailBerita::class.java)
+                intent.putExtra("kirimData", data) // You can customize what you send
                 startActivity(intent)
             }
         })
