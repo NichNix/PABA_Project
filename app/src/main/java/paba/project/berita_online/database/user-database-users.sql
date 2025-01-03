@@ -1,0 +1,6 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE `users` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `email` TEXT NOT NULL, `password` TEXT NOT NULL, `name` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL);
+INSERT INTO users VALUES(1,'max123@gmail.com','12345','Max Verstappen','08123123123');
+INSERT INTO users VALUES(2,'js@gmail.com','12345','Jason Shaw','08999999');
+COMMIT;

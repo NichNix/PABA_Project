@@ -9,6 +9,14 @@
     android:orientation="vertical"
     android:layout_margin="10dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TAMBAH BERITA"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
