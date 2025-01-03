@@ -1,16 +1,18 @@
 package paba.project.berita_online
 
 import adapterBerita
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,13 +27,16 @@ import paba.project.berita_online.ui.LoginActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _rvBerita: RecyclerView
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
-
         setContentView(R.layout.activity_main)
+
+        // Initialize SharedPreferences for managing favorites based on user session
+        sharedPref = getUserFavoritesSharedPreferences()
 
         _rvBerita = findViewById<RecyclerView>(R.id.rvBerita)
 
@@ -60,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Check if the user is logged in
+        // User session management
         val email = getUserSession()
 
         val greetingTextView: TextView = findViewById(R.id.tvGreeting)
@@ -73,33 +78,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (email == null) {
-            // If no user session is found, navigate to LoginActivity
-            loginButton.text = "Login" // Set text to "Login"
+            loginButton.text = "Login"
             loginButton.setOnClickListener {
-                // Redirect to login page
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
         } else {
-            // If user is logged in, show a personalized greeting and logout button
             greetingTextView.text = "Hello, $email"
-            loginButton.text = "Logout" // Set text to "Logout"
+            loginButton.text = "Logout"
             loginButton.setOnClickListener {
-                // Logout functionality: Clear user session
                 clearUserSession()
-                // Navigate back to LoginActivity
                 navigateToLoginPage()
             }
         }
 
         val userProfileButton: Button = findViewById(R.id.btnUserprofile)
         userProfileButton.setOnClickListener {
-            // Redirect to user profile page
             val intent = Intent(this, profilPengguna::class.java)
             startActivity(intent)
         }
 
-        // Ensure system UI (status and navigation bars) are properly padded
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -107,18 +105,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Function to get user-specific SharedPreferences for favorites
+    private fun getUserFavoritesSharedPreferences(): SharedPreferences {
+        val email = getUserSession()
+        return if (email != null) {
+            getSharedPreferences("favorites_$email", Context.MODE_PRIVATE)
+        } else {
+            getSharedPreferences("favorites", Context.MODE_PRIVATE) // Default for non-logged-in users
+        }
+    }
+
     // Update this method to display data from the NewsEntity database
     fun TampilkanData(newsList: List<NewsEntity>) {
         _rvBerita.layoutManager = LinearLayoutManager(this)
 
-        val adBerita = adapterBerita(newsList) // Pass the list of news from the database
+        // Pass SharedPreferences when creating adapter
+        val adBerita = adapterBerita(newsList, sharedPref) // Pass context and the list of news from the database
         _rvBerita.adapter = adBerita
 
         // Set the onItemClickCallback
         adBerita.setOnItemClickCallback(object : adapterBerita.OnItemClickCallback {
             override fun onItemClicked(data: NewsEntity) {
                 Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_LONG).show()
-                // Create the intent to pass data to detailBerita activity
                 val intent = Intent(this@MainActivity, detailBerita::class.java)
                 intent.putExtra("kirimData", data) // Pass the NewsEntity as Parcelable
                 startActivity(intent)
@@ -134,12 +142,28 @@ class MainActivity : AppCompatActivity() {
 
                     // Refresh the data after deletion
                     launch(Dispatchers.Main) {
-                        // Fetch all news again after deletion
                         val allNews = newsDao.getAllNews()
-                        // Update RecyclerView with the updated list
                         adBerita.notifyDataSetChanged()
                     }
                 }
+            }
+        })
+
+        // Set the favorite button click listener
+        adBerita.setOnFavoriteClickCallback(object : adapterBerita.OnFavoriteClickCallback {
+            override fun onFavoriteClicked(data: NewsEntity) {
+                val isFavorite = sharedPref.getBoolean(data.id.toString(), false)
+                val editor = sharedPref.edit()
+
+                if (isFavorite) {
+                    editor.remove(data.id.toString()) // Remove from favorites
+                    Toast.makeText(this@MainActivity, "${data.title} removed from favorites", Toast.LENGTH_SHORT).show()
+                } else {
+                    editor.putBoolean(data.id.toString(), true) // Add to favorites
+                    Toast.makeText(this@MainActivity, "${data.title} added to favorites", Toast.LENGTH_SHORT).show()
+                }
+                editor.apply() // Save changes to SharedPreferences
+                adBerita.notifyDataSetChanged() // Refresh adapter to update the icon
             }
         })
     }
@@ -147,21 +171,21 @@ class MainActivity : AppCompatActivity() {
     // Retrieve the user session (email) from SharedPreferences
     private fun getUserSession(): String? {
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
-        return sharedPref.getString("user_email", null) // Return null if no session is found
+        return sharedPref.getString("user_email", null)
     }
 
     // Clear the user session (logout)
     private fun clearUserSession() {
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.remove("user_email") // Remove the stored email
-        editor.apply() // Apply changes
+        editor.remove("user_email")
+        editor.apply()
     }
 
     // Navigate to LoginActivity
     private fun navigateToLoginPage() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        finish() // Close MainActivity so user can't go back
+        finish()
     }
 }

@@ -19,4 +19,7 @@ interface NewsDao {
 
     @Delete
     suspend fun deleteNews(news: NewsEntity)
+
+    @Query("SELECT * FROM news WHERE id IN (:newsIds)")
+    suspend fun getNewsByIds(newsIds: List<Int>): List<NewsEntity>
 }
